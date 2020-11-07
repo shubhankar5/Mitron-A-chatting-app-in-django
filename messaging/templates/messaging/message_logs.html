@@ -1,0 +1,60 @@
+<div class="container-fluid">
+	{% load tags %}
+	{% for m in chat_logs %}
+		{% if m.sender|get_user == user %}
+			<div class="row mt-2 mr-2">
+				<div class="col-sm-1 mr-1">
+					<span class="badge bg-info">
+						<i class="fa fa-arrow-left"></i>
+					</span>
+				</div>
+				<div class="col-sm p-1">
+					<button class="btn border border-light rounded message-to w-100" user-id="{{ m.receiver }}" ajax-url="{% url 'view-messages' %}">
+						<h6 class="font-weight-bold p-1">
+							Messages to {{ m.receiver|get_first_name }} {{ m.receiver|get_last_name }}
+						</h6>
+					</button>
+				</div>
+			</div>
+
+		{% else %}
+			{% if m.messages__id__max|is_seen %}
+				<div class="row mt-2 mr-2">
+					<div class="col-sm-1 mr-2">
+						<span class="badge bg-info">
+							<i class="fa fa-arrow-right"></i>
+						</span>
+					</div>
+					<div class="col-sm p-1">
+						<button class="btn border border-light rounded message-from w-100" user-id="{{ m.sender }}" ajax-url="{% url 'view-messages' %}">
+							<h6 class="font-weight-bold p-1">
+								Messages from {{ m.sender|get_first_name }} {{ m.sender|get_last_name }}
+							</h6>
+						</button>
+					</div>
+				</div>
+
+			{% else %}
+				<div class="row mt-2">
+					<div class="col-sm-1 mr-2">
+						<span class="badge bg-info">
+							<i class="fa fa-arrow-right"></i>
+						</span>
+					</div>
+					<div class="col-sm unseen mt-1 p-1" ajax-url="{% url 'handle-unseen-messages' %}" >
+						<button class="btn border border-light rounded message-from w-100" user-id="{{ m.sender }}" ajax-url="{% url 'view-messages' %}">
+							<h6 class="font-weight-bold p-1">
+								Messages from {{ m.sender|get_first_name }} {{ m.sender|get_last_name }}
+							</h6>
+						</button>
+				  	</div>
+				  	<span class="badge bg-light border border-danger rounded-circle mb-auto">
+			  			{{ m.unseen_count }}
+			  		</span>
+				</div>
+			{% endif %}
+		{% endif %}
+		
+	{% endfor %}
+
+</div>

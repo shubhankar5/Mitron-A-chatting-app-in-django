@@ -1,0 +1,91 @@
+<div class="container-fluid mt-4">
+	<div class="row top-desc border rounded">
+		<div class="col-sm-1 ml-4 p-1">
+			<a href="{% url 'other-users-profile' id=other.id %}" class="stretched-link">
+				<img src="{{ other.profile.display_picture.url }}" alt="Display Picture" class="rounded-circle chat-dp">
+			</a>
+		</div>
+		<div class="col-sm-4 p-2">
+			<a href="{% url 'other-users-profile' id=other.id %}" class="stretched-link">
+				<h5 class="font-weight-bold text-dark">
+					{{ other.profile.first_name }} {{ other.profile.last_name }}
+				</h5>
+			</a>
+		</div>
+	</div>
+</div>
+	<div class="container-fluid border chat-bg">
+		<div id="requested-message-body" class="container-fluid">
+			{% if messages %}
+				<button type="button" id="bottom-button" class="rounded-circle bg-dark border-0">
+					<i  id="bottom-icon" class="fas fa-angle-down text-light"></i>
+				</button>
+			{% load tags %}
+			{% for m in messages %}
+				{% if m.whos|get_sender == user %}
+					<div class="row justify-content-end">
+						<div class="col-sm-7 mb-1">
+							<div class="row justify-content-end mt-3 message-div" ajax-url="{% url 'handle-message-liking' %}" val="{{ m.id }}" liked="{{ m.liked }}">
+								<span class="badge pt-3 pl-2 like-button">
+									<i class="far fa-heart fa-lg"></i>
+								</span>
+								{% if m.liked %}
+									<span class="badge pt-3 pl-2 liked">
+										<i class="fas fa-heart fa-lg"></i>
+									</span>
+								{% endif %}
+								{% if m.message_type == 't' %}
+									{% if m.text|dec|length %}
+										<div class="col-sm-10 user-msg badge-pill mr-3 px-3 py-1 text-center">
+											{{ m.text|dec }}
+										</div>
+									{% else %}
+										<div class="user-msg badge-pill mr-3 px-3 py-1">
+											{{ m.text|dec }}
+										</div>
+									{% endif %}
+								{% elif m.message_type == 'i' %}
+									<img src="{{ m.image.url }}" alt="Image" class="img-fluid rounded mr-3 mb-1">
+								{% endif %}
+							</div>
+							<div class="row small justify-content-end font-italic">
+								{{ m.time_stamp }}
+							</div>
+						</div>
+					</div>
+				{% elif m.whos|get_sender == other %}
+					<div class="row">
+						<div class="col-sm-7 mb-1">
+							<div class="row mt-3 message-div" ajax-url="{% url 'handle-message-liking' %}" val="{{ m.id }}" liked="{{ m.liked }}">
+								{% if m.message_type == 't' %}
+									{% if m.text|dec|length %}
+										<div class="col-sm-10 other-msg badge-pill mr-3 px-3 py-1 text-center">
+											{{ m.text|dec }}
+										</div>
+									{% else %}
+										<div class="other-msg badge-pill mr-3 px-3 py-1">
+											{{ m.text|dec }}
+										</div>
+									{% endif %}
+								{% elif m.message_type == 'i' %}
+									<img src="{{ m.image.url }}" alt="Image" class="img-fluid rounded mr-3 mb-1">
+								{% endif %}
+								<span class="badge pt-3 pl-2 like-button">
+									<i class="far fa-heart fa-lg"></i>
+								</span>
+								{% if m.liked %}
+									<span class="badge pt-3 pl-2 liked">
+										<i class="fas fa-heart fa-lg"></i>
+									</span>
+								{% endif %}
+							</div>
+							<div class="row small font-italic">				
+								{{ m.time_stamp }}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endfor %}
+			{% endif %}
+		</div>
+	</div>

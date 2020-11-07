@@ -1,0 +1,24 @@
+<textarea id="message-text" class="form-control" placeholder="Type here"></textarea>
+<div class="input-group-append">
+	<button id="send-text" type="button" class="btn btn-dark border rounded p-2" ajax-url="{% url 'send-message' id=id %}">
+		<strong>Send</strong>
+	</button>
+	<button type="button" class="btn btn-dark btn-sm border rounded pt-2 px-3 ml-1 w-100" data-toggle="modal" data-target="#imageModal">
+		<i class="fa fa-camera fa-lg"></i>
+	</button>
+	<div class="modal fade" id="imageModal">
+	    <div class="modal-dialog modal-dialog-centered">
+	      	<div class="modal-content p-2">
+		        <div class="modal-body">
+		        	<form method="post" action="{% url 'send-image' id=id %}" id="image-form" enctype="multipart/form-data" class="form-control-sm">
+						{% csrf_token %}
+						{{ image_form }}
+						<button type="submit" class="btn btn-dark ml-5">
+							Send image
+						</button>
+					</form>
+		        </div>
+		    </div>
+	    </div>
+	</div>
+</div>
