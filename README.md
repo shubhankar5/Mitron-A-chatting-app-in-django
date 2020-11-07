@@ -1,3 +1,2 @@
-# Mitron
-# A chatting app in django
+# Mitron: A chatting app in django
 
