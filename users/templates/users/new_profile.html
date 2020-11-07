@@ -1,0 +1,27 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}	
+{% block content %}
+
+	<div class="container mt-3">	
+		<h4 class="font-weight-bold text-primary">Fill Profile</h4>
+		<form method="POST" class="form-control-sm">
+			<div class="form-group row">			
+				{% csrf_token %}
+				<div class="col-sm">
+					{{ profile_form|crispy }}
+				</div>
+				<div class="col-sm ml-5">
+					{{ address_form|crispy }}
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-sm-4">
+					<button type="submit" class="btn btn-dark btn-sm w-100">
+						Save
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+{% endblock content %}

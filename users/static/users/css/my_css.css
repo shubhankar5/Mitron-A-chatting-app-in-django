@@ -1,0 +1,182 @@
+#logo{
+	width: 50px;
+	height: 50px;
+}
+
+#messages{
+	position: fixed;
+	top: 0;
+	z-index: 1;
+	opacity: 0.95;
+	overflow-y: scroll;
+}
+
+.active{
+	background-color: SlateGray;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.message-to, .message-from{
+	background-color: Bisque;
+}
+
+.unseen{
+	border: 5px solid red;
+	border-radius: 8px;
+}
+
+.like-button, .liked{
+	color: red;
+}
+
+.like-button{
+	display: none;
+}
+
+#settings{
+	color: white;
+}
+
+#message-text{
+	resize: none;
+}
+
+#notification-icon:hover{
+	cursor: pointer;
+}
+
+#notification-icon{
+	color: tomato;
+}
+
+#notification-count{
+	position: absolute;
+	left: 35px;
+	top: -10px;
+}
+
+#notification-body{
+	max-height: 250px;
+	overflow-y: scroll;
+}
+
+.notification-link:hover{
+	background-color: GainsBoro;
+}
+
+.notification-link:active{
+	background-color: Gray;
+}
+
+.dp{
+	height: 330px;
+}
+
+#bio{
+	overflow: scroll;
+}
+
+#upload-picture, #remove-picture{
+	cursor: pointer;
+}
+
+#search-results-users{
+	display: none;
+	position: absolute;
+	z-index: 3;
+	left: 130px;
+	top: 58px;
+	width: 410px;
+}
+
+#start-chat-results{
+	display: none;
+	position: absolute;
+	left: 205px;
+	height: 330px;
+	width: 440px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	z-index: 2;
+}
+
+.search-dp{
+	width:40px; 
+	height:40px;
+}
+
+.results-dp{
+	width: 52px;
+	height: 52px;
+}
+
+.recent{
+	background-color: blue;
+}
+
+.chat-bg{
+	background-color: Bisque;
+}
+
+.top-desc{
+	background-color: SlateGray;
+}
+
+.top-desc a:hover{
+	text-decoration: none; 
+}
+
+.top-desc a:hover h5{
+	font-size: 19px;
+}
+
+.chat-dp{
+	width: 40px;
+	height: 40px;
+}
+
+.user-msg{
+	background-color: Thistle;
+}
+
+.other-msg{
+	background-color: MediumOrchid;
+}
+
+#requested-message-body, #message-logs{
+	height: 380px;
+	overflow-y: scroll;
+}
+
+#bottom-icon{
+	font-size: 30px;
+}
+
+#bottom-button{
+	display: none;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 340px;
+	left: 435px;
+	z-index: 1;
+	outline: none;
+	text-align: center;	
+}
+
+

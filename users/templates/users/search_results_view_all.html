@@ -1,0 +1,31 @@
+{% extends "users/base.html" %}	
+{% block content %}
+	
+	<div class="container mt-3">
+		<h4 class="font-weight-bold text-primary mb-3">
+			Search results for "{{ search_text }}"
+		</h4>
+		{% for u in users %}
+			<div class="col-sm-8">
+				<div class="card bg-light mt-2">
+					<div class="row">
+						<div class="col-sm-2 ml-4">
+							<img src="{{ u.profile.display_picture.url }}" alt="Display Picture" class="rounded-circle img-thumbnail results-dp">
+						</div>
+						<div class="col-sm my-1">
+							<div class="row font-weight-bold">
+								@{{u.username}}
+							</div>
+							<div class="row">
+								{{u.profile.first_name}} {{u.profile.last_name}}
+							</div>
+						</div>
+						<a href="/home/profile/{{u.id}}" class="stretched-link">
+						</a>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}	
+{% block content %}
+
+	<div class="container mt-3">
+		<h1 class="font-weight-bold text-center">WELCOME</h1>
+		<div class="row justify-content-center">
+			<div class="col-sm-5">
+				<h4 class="font-weight-bold text-primary mt-3">Sign Up here:</h4>
+				<form method="POST" class="form-control-sm">
+					<div class="form-group">
+						{% csrf_token %}
+						{{ form|crispy }}
+					</div>
+					<div class="row ml-1">
+						<button type="submit" class="btn btn-dark btn-sm">Sign Up</button>
+						<div class="row small mt-1 ml-3"> 
+							<a class="font-weight-bold text-info" href="{% url 'login' %}">
+								Already a user? Log In
+							</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+{% endblock content %}

@@ -1,0 +1,33 @@
+{% extends "users/base.html" %}
+{% load crispy_forms_tags %}	
+{% block content %}	
+	
+	<div class="container mt-3">	
+		<h4 class="font-weight-bold text-primary">Update Profile</h4>
+		<form method="POST" class="form-control-sm">
+			<div class="form-group row">		
+				{% csrf_token %}
+				<div class="col-sm">
+					{{ u_form|crispy }}
+					{{ p_form|crispy }}
+				</div>
+				<div class="col-sm ml-5">
+					{{ add_form|crispy }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-2 mt-3">
+					<button type="submit" class="btn btn-dark btn-sm w-100">
+						Update
+					</button>
+				</div>
+				<div class="col-sm-2 mt-3">
+					<button type="button" class="cancel-button btn btn-danger btn-sm w-100">
+						Cancel
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+{% endblock content %}

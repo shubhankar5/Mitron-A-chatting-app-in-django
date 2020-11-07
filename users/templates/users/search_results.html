@@ -1,0 +1,57 @@
+{% if size != -1 %}
+	<div class="container-fluid">
+		{% if size > 0 %}
+			{% for u in users %}
+				<div class="row">
+					<div class="col-sm border border-secondary">
+						<div class="row bg-light">
+							<div class="col-sm-1 my-2 ml-3">
+								<img src="{{ u.profile.display_picture.url }}" alt="Display Picture" class="rounded-circle search-dp">
+							</div>
+							<div class="col-sm-5 mt-1 ml-5">
+								<div class="row font-weight-bold">
+									@{{u.username}}
+								</div>
+								<div class="row">
+									{{u.profile.first_name}} {{u.profile.last_name}}
+								</div>
+							</div>
+							<a href="{% url 'other-users-profile' id=u.id %}" class="stretched-link">
+							</a>
+							{% if mode == 'start' %}
+								<div class="col-sm my-2">
+									<button class="btn btn-dark btn-sm w-75 chat-button" ajax-url="{% url 'view-messages' %}" user-id="{{ u.id }}">
+										Chat
+									</button>
+								</div>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+			{% if mode == 'users' and size == max_results %}
+				<div class="row">
+					<div class="col-sm border border-secondary rounded-bottom">
+						<div class="row bg-light pl-4 py-2">
+							<button id="view-all-button" class="btn btn-dark btn-sm" ajax-url="{% url 'search-results-users' %}">
+								View all results
+							</button>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+
+		{% else %}
+			<div class="row">
+				<div class="col-sm bg-light border border-secondary p-3 font-weight-bold text-danger">
+					{% if mode == 'users' %}
+							No search results found :(
+					{% elif mode == 'friends' or mode == 'start' %}
+							You don't have any such friends!
+					{% endif %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+{% endif %}

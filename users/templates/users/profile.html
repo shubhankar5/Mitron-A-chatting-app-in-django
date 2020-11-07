@@ -1,0 +1,170 @@
+{% extends "users/base.html" %}	
+{% block content %}
+
+	<div class="container mt-3">
+		<h4 class="font-weight-bold text-primary mt-3">
+			@{{ person.username}}
+		</h4>
+		<h4 class="font-weight-bold">
+			{{ person.profile.first_name }} {{ person.profile.last_name }}
+		</h4>
+
+		<div class="row mt-3">
+			<div class="col-sm-4">
+				<div class="rounded">
+					<img src="{{ person.profile.display_picture.url }}" alt="Display Picture" class="img-thumbnail dp">
+				</div>
+				{% if person == user %}
+					<div class="btn-group dropright ml-1 mt-1">
+						<button class="btn btn-sm btn-dark dropdown-toggle" data-toggle="dropdown">
+							Update Profile Picture
+						</button>
+						<div class="dropdown-menu bg-light">
+							<div class="dropdown-header">
+								<form method="post" enctype="multipart/form-data" class="form-control-sm dropdown-header">	
+									{% csrf_token %}
+									{{ dp_form }}
+									<button type="submit" class="btn btn-sm btn-dark" ajax-url="{% url 'users-profile-picture-update' %}">
+										Upload picture
+									</button>
+								</form>
+							</div>
+							<div class="dropdown-divider"></div>
+					        <div id="remove-picture" class="dropdown-item ml-4" ajax-url="{% url 'users-profile-picture-update' %}">
+					        	Remove picture
+					        </div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+
+			<div class="col-sm ml-5">
+				<div class="col-sm ml-5">
+					<h5 class="font-weight-bold font-italic">
+						About
+					</h5>
+					<ul class="list-unstyled p-2 font-weight-normal">
+						<li class="mt-1">Email ID: {{ person.email }}</li>
+						<li class="mt-1">Sex: {{ person.profile.get_sex_display }}</li>
+						<li class="mt-1">Date of Birth: {{ person.profile.dob|date:"d/m/Y" }}</li>
+						<li class="mt-1">
+							Address:
+								{{ person.profile.address.city }},
+								{{ person.profile.address.state }},
+								{{ person.profile.address.country }}
+						</li>
+						{% if person == user %}
+							<li class="font-italic mt-3">User since {{ person.date_joined }}</li>
+						{% endif %}
+					</ul>
+				</div>
+
+				<div class="col-sm-5 mt-5 ml-5">
+					<h5 class="font-weight-bold font-italic">
+						Bio
+					</h5>
+					<div id="bio" class="small font-weight-normal border border-secondary shadow bg-light ml-1 p-3">
+						{{ person.profile.bio }}
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		
+		{% if person == user %}
+		<div class="row mt-5">
+			<div class="col-sm mt-2 ml-2">
+				<a href="{% url 'users-profile-update' %}" class="btn btn-dark btn-sm w-25">
+					Update Profile
+				</a>
+			</div>
+		</div>
+
+		{% else %}
+			{% if is_blocked %}
+				<div class="row mt-4 ml-1">
+					<div class=" col-sm-3">
+						<button type="button" class="block-button btn btn-dark btn-sm" ajax-url="{% url 'block-users' id=person.id action='unblock'%}">
+							Unblock User
+						</button>
+					</div>
+				</div>
+			{% else %}
+				<div class="row mt-4 ml-1">
+					{% csrf_token %}
+					{% if is_friend %}
+						<div class=" col-sm-3">
+							<button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#friendModal">
+								Remove Friend
+							</button>
+							<div class="modal fade" id="friendModal">
+							    <div class="modal-dialog modal-dialog-centered">
+							      	<div class="modal-content">
+								        <div class="modal-body">
+								        	<div class="row">
+									        	<div class="col-sm">
+									        		Are you sure you want to remove <b> @{{ person.username }}</b> from your friends?
+									        	</div>
+									          	<div class="col-sm-1">
+										          	<button type="button" class="close" data-dismiss="modal">
+										          		&times;
+										          	</button>
+										        </div>
+										    </div>
+								        </div>
+								        <div class="modal-footer">
+								          	<button id="remove" type="button" class="ajax-friend-button btn btn-dark" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+								          		Yes
+								         	 </button>
+								         	<button type="button" class="btn btn-danger" data-dismiss="modal">
+								          		Cancel
+								          	</button>
+								        </div>    
+								    </div>
+							    </div>
+							</div>
+						</div>
+					{% elif sent %}
+						<div class="col-sm-3">
+							<button id="cancel_request" class="ajax-friend-button btn btn-info btn-sm" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+								Cancel Friend Request
+							</button>
+						</div>
+					{% elif received %}
+						<div class="col-sm-2 small text-secondary">
+							Respond to request
+						</div>
+						<div class="col-sm-1">
+							<button id="accept" class="ajax-friend-button btn btn-info btn-sm" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+								Accept
+							</button>
+						</div>
+						<div class="col-sm-1">
+							<button id="decline" class="ajax-friend-button btn btn-danger btn-sm" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+								Decline
+							</button>
+						</div>
+					{% else %}
+						<div class="col-sm-2">
+							<button id="add" class="ajax-friend-button btn btn-info btn-sm" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+								Add Friend
+							</button>
+						</div>
+					{% endif %}
+				</div>
+				<div class="row mt-3 ml-1">
+					<div class="col-sm-2">
+						{% if not is_blocked %}
+							<button type="button" class="block-button btn btn-dark btn-sm" ajax-url="{% url 'block-users' id=person.id action='block'%}">
+								Block User
+							</button>
+						{% endif %}
+					</div>
+				</div>
+			{% endif %}
+		{% endif %}
+
+	</div>
+
+{% endblock content %}

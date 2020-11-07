@@ -1,0 +1,63 @@
+{% extends "users/base.html" %}	
+{% block content %}
+{% load static %}
+	
+	<div id="home" class="container-fluid mt-3">
+		{% if user.friends.count > 0 %}
+			<div class="row">
+				<div class="col-sm">
+					<div class="col-sm-8">
+						<div class="input-group">
+							<div class="input-group-prepend">
+								<h4 class="font-weight-bold text-primary ">
+									Start a new chat
+								</h4>
+							</div>
+							<input type="search" id="start-chat" class="form-control ml-4" autocomplete="off" placeholder="Search your friends here" ajax-url="{% url 'search-friends-ajax' %}">
+							<div class="input-group-append">
+						  		<span class="input-group-text fa fa-search"></span>
+						  	</div>
+				  		</div>
+				  		<div id="start-chat-results" class="container-fluid">
+						</div>
+					</div>
+					<div id="welcome" class="container mt-5">
+						<div class="col-sm-8 text-info font-weight-bold ">
+							<img src="{% static 'users/images/welcome_back.png' %}" alt="Welcome Back" class="rounded img-fluid wow pulse" data-wow-duration="2s" data-wow-iteration="3">
+							{% if has_messages %}
+								<h3 class="mt-5">Start a new conversation or view your old ones</h3>
+							{% else %}
+								<h3 class="mt-5">Send your first message and start chatting now!</h3>
+							{% endif %}
+						</div>
+					</div>
+					<div id="requested-message" ajax-url="{% url 'view-messages' %}">
+					</div>
+					{% csrf_token %}
+					<div id="typing-box" class="input-group mt-1" ajax-url="{% url 'view-typing-box' %}">
+				  	</div>
+				</div>
+				<div class="col-sm-3 ml-3">
+					<h4 class="font-weight-bold text-primary ">
+						Message Logs
+					</h4>
+					<div id="message-logs" ajax-url="{% url 'message-logs' %}" class="container-fluid">
+					</div>
+				</div>
+			</div>
+		{% else %}
+			<div class="row">
+				<div class="col-sm text-info">
+					<img src="{% static 'users/images/welcome_new_user.png' %}" alt="Welcome New User" width="700px" class="rounded m-3 img-fluid wow pulse" data-wow-duration="2s" data-wow-iteration="3">
+					<h3 class="mt-5">
+						Explore other users and add some friends to start chatting!
+					</h3>
+					<h3 class="mt-4">
+						Goodluck :)
+					</h3>
+				</div>
+			</div>
+		{% endif %}
+	</div>
+
+{% endblock content %}
