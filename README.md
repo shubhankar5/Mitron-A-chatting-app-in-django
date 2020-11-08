@@ -1,9 +1,16 @@
 # Mitron: A chatting app in django
 A chatting application to add friends and chat in text and image messages which are encrypted to ensure your secrecy.    
 
-[Start page](https://github.com/shubhankar5/Mitron-A-chatting-app-in-django/blob/main/screenshots/start.png)  | [Admin Page](https://github.com/shubhankar5/Mitron-A-chatting-app-in-django/blob/main/screenshots/admin.png)
-:-------------------------:|:-------------------------:
-| Start page               |  Admin Page |    
+<table>
+  	<tr>
+	    <td>First Screen Page</td>
+	    <td>Admin Page</td>
+	</tr>
+  	<tr>
+	    <td><img src="screenshots/home_1.png" alt="Home page on load" width="300"></td>
+	    <td><img src="screenshots/home_2.png" alt="Home page chat screen" width="300"></td>
+  	</tr>
+</table>    
   
 ## Key features
 * REST API with PostgreSQL database and easy to understand admin page
