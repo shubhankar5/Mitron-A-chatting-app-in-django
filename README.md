@@ -15,7 +15,7 @@ A chatting application to add friends and chat in text and image messages which 
 	    <td><img src="screenshots/admin.png" alt="Admin page" width="300"></td>
   	</tr>
 </table>  
-
+<br>
 <table>
   	<tr>
 	    <td>
@@ -29,13 +29,7 @@ A chatting application to add friends and chat in text and image messages which 
 	    <td><img src="screenshots/home_1.png" alt="Home page on load" width="400"></td>
 	    <td><img src="screenshots/home_2.png" alt="Home page chat screen" width="400"></td>
   	</tr>
-</table>
-
-table{
-	table-layout: fixed; 
-    	width: 750px;
-    	padding: 10px; 
-}  
+</table>   
   
 ## Key features
 * REST API with PostgreSQL database and easy to understand admin page
