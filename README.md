@@ -3,12 +3,31 @@ A chatting application to add friends and chat in text and image messages which 
 
 <table>
   	<tr>
-	    <td>First Screen Page</td>
-	    <td>Admin Page</td>
+	    <td>
+	    	<strong>First Screen Page: </strong>This is the very first page that is available on <i>http://127.0.0.1:8000/<i> which is the default localhost address in Django.
+	    </td>
+	    <td>
+	    	<strong>Admin Page: </strong>This is the default Django admin page that is available on <i>http://127.0.0.1:8000/admin<i> where all the models and their data are visible to the superuser.
+	    </td>
 	</tr>
   	<tr>
-	    <td><img src="screenshots/home_1.png" alt="Home page on load" width="300"></td>
-	    <td><img src="screenshots/home_2.png" alt="Home page chat screen" width="300"></td>
+	    <td><img src="screenshots/start.png" alt="Start page" width="400"></td>
+	    <td><img src="screenshots/admin.png" alt="Admin page" width="400"></td>
+  	</tr>
+</table>  
+
+<table>
+  	<tr>
+	    <td>
+	    	<strong>Home Page on load: </strong>This is the Home Page that is available on <i>http://127.0.0.1:8000/home/<i>.
+	    </td>
+	    <td>
+	    	<strong>Chat screen on Home Page: </strong>This screen is visible only once you start a new conversation or click on one of the message logs shown on the right of the image.
+	    </td>
+	</tr>
+  	<tr>
+	    <td><img src="screenshots/home_1.png" alt="Home page on load" width="400"></td>
+	    <td><img src="screenshots/home_2.png" alt="Home page chat screen" width="400"></td>
   	</tr>
 </table>    
   
