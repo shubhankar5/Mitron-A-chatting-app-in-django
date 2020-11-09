@@ -13,6 +13,7 @@ from django.views.decorators.http import require_safe, require_http_methods
 from django.db.models.functions import Lower
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
+from django.core.paginator import Paginator
 
 
 @require_http_methods(["GET", "POST"])
@@ -214,10 +215,13 @@ def search_users(request):
 @require_safe
 @login_required
 def search_results_users(request, search_text=None): 
-	users_all, size = queryset_users(request, search_text)
 	if search_text:
+		users_all, size = queryset_users(request, search_text)
+		paginator = Paginator(users_all, 10)
+		page_number = request.GET.get('page')
+		page_users = paginator.get_page(page_number)
 		return render(request, 'users/search_results_view_all.html', {	'search_text' : search_text,
-																		'users' : users_all
+																		'page_users' : page_users,
 																	})	
 	else:
 		raise Http404('First search something!')
@@ -279,9 +283,20 @@ def search_friends(request):
 		except:
 			friends = None
 			size = 0
+		if mode == 'friends':
+			paginator = Paginator(friends, 1)
+			page_number = request.GET.get('page')
+			page_friends = paginator.get_page(page_number)
+			return render(request, 'users/search_results.html', {	'users' : friends,
+																	'mode' : mode, 
+																	'size' : size,
+																	'page_friends' : page_friends,
+																})
+
 		return render(request, 'users/search_results.html', {	'users' : friends,
 																'mode' : mode, 
-																'size' : size})
+																'size' : size
+															})
 
 
 @require_safe
@@ -291,14 +306,7 @@ def view_all_friends(request):
 		has_friends = True
 	else:
 		has_friends = False
-	if Messages.objects.filter(	Q(sender=request.user)|
-									Q(receiver=request.user)
-							).exists():
-			has_messages = True
-	else:
-		has_messages = False
-	return render(request, 'users/view_all_friends.html', { 'has_friends' : has_friends, 
-															'has_messages' : has_messages })
+	return render(request, 'users/view_all_friends.html', { 'has_friends' : has_friends })
 
 
 @require_safe
