@@ -20,11 +20,12 @@ function get_notifications(){
 	);
 }
 
-function search_friends(){
+function search_friends(page=1){
 	$.get($('#search-friends').attr('ajax-url'),
 	{
 		'search_text' : $('#search-friends').val(),
 		'mode' : 'friends',
+		'page' : ''+page,
 	},
 	function(data){
 		$('#search-results-friends').html(data);
@@ -118,5 +119,9 @@ $(function(){
   		},
   		'json'
   		);
+  	});
+
+  	$('body').on('click', '.paginator', function(){
+		search_friends($(this).attr('page'));
   	});
 });
