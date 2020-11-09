@@ -5,7 +5,7 @@
 		<h4 class="font-weight-bold text-primary mb-3">
 			Search results for "{{ search_text }}"
 		</h4>
-		{% for u in users %}
+		{% for u in page_users %}
 			<div class="col-sm-8">
 				<div class="card bg-light mt-2">
 					<div class="row">
@@ -26,6 +26,25 @@
 				</div>
 			</div>
 		{% endfor %}
+		<div class="contianer mt-4 ml-3">
+	        {% if page_users.has_previous %}
+	            <a href="?page=1" class="btn btn-sm btn-outline-primary mx-1">&laquo; First</a>
+	            <a href="?page={{ page_users.previous_page_number }} mx-1" class="btn btn-sm btn-outline-primary">Previous</a>
+	        {% endif %}
+
+	        {% for num in page_users.paginator.page_range %}
+	        	{% if page_users.number == num %}
+	        		<a href="?page={{ num }}" class="btn btn-sm btn-primary mx-1">{{ num }}</a>
+	        	{% elif page_users.number > num|add:'-3' or page_users.number < num|add:'3'%}
+	        		<a href="?page={{ num }}" class="btn btn-sm btn-outline-primary mx-1">{{ num }}</a>
+	        	{% endif %}
+	        {% endfor %}
+
+	        {% if page_users.has_next %}
+	            <a href="?page={{ page_users.next_page_number }}" class="btn btn-sm btn-outline-primary mx-1">Next</a>
+	            <a href="?page={{ page_users.paginator.num_pages }}" class="btn btn-sm btn-outline-primary mx-1">Last &raquo;</a>
+	        {% endif %}
+		</div>
 	</div>
 	
 {% endblock content %}
