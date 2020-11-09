@@ -1,6 +1,49 @@
 {% if size != -1 %}
 	<div class="container-fluid">
-		{% if size > 0 %}
+		{% if size > 0 and mode == 'friends' %}
+			{% for u in page_friends %}
+				<div class="row">
+					<div class="col-sm border border-secondary">
+						<div class="row bg-light">
+							<div class="col-sm-1 my-2 ml-3">
+								<img src="{{ u.profile.display_picture.url }}" alt="Display Picture" class="rounded-circle search-dp">
+							</div>
+							<div class="col-sm-5 mt-1 ml-5">
+								<div class="row font-weight-bold">
+									@{{u.username}}
+								</div>
+								<div class="row">
+									{{u.profile.first_name}} {{u.profile.last_name}}
+								</div>
+							</div>
+							<a href="{% url 'other-users-profile' id=u.id %}" class="stretched-link">
+							</a>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+
+			<div class="contianer mt-4 ml-3">
+		        {% if page_friends.has_previous %}
+		            <button page="1" class="btn btn-sm btn-outline-primary mx-1 paginator">&laquo; First</button>
+		            <button href="?page={{ page_friends.previous_page_number }} mx-1" class="btn btn-sm btn-outline-primary paginator">Previous</button>
+		        {% endif %}
+
+		        {% for num in page_friends.paginator.page_range %}
+		        	{% if page_friends.number == num %}
+		        		<button page="{{ num }}" class="btn btn-sm btn-primary mx-1 paginator">{{ num }}</button>
+		        	{% elif page_friends.number > num|add:'-3' or page_friends.number < num|add:'3'%}
+		        		<button page="{{ num }}" class="btn btn-sm btn-outline-primary mx-1 paginator">{{ num }}</button>
+		        	{% endif %}
+		        {% endfor %}
+
+		        {% if page_friends.has_next %}
+		            <button page="{{ page_friends.next_page_number }}" class="btn btn-sm btn-outline-primary mx-1 paginator">Next</button>
+		            <button page="{{ page_friends.paginator.num_pages }}" class="btn btn-sm btn-outline-primary mx-1 paginator">Last &raquo;</button>
+		        {% endif %}
+			</div>
+
+		{% elif size > 0 %}
 			{% for u in users %}
 				<div class="row">
 					<div class="col-sm border border-secondary">
