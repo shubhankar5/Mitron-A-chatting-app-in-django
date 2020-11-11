@@ -13,6 +13,11 @@
 
 .active{
 	background-color: SlateGray;
+	border-radius: 3px;
+}
+
+.active:hover{
+	background-color: DarkSlateGray;
 }
 
 ::-webkit-scrollbar {
