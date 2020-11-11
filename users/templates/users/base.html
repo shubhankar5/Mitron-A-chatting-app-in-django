@@ -33,85 +33,91 @@
 
 	{% if user.is_authenticated %}
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-		  	<div class="col-sm-1 mr-1 pull-left">
-		  		<a href="{% url 'users-home' %}">
-					<img src="{% static 'users/images/mitron.png' %}" alt="Mitron" id="logo">
-				</a>
-		    </div>
-		  	<div class="col-sm navbar-text">
+	  		<a href="{% url 'users-home' %}" class="navbar-brand">
+				<img src="{% static 'users/images/mitron.png' %}" alt="Mitron" id="logo">
+				Mitron
+			</a>
+			
+		  	<form class="form-inline pl-4 pr-2">
 		  		<div class="input-group">
 			  		<input type="search" class="form-control" id="search-users" autocomplete="off" placeholder="Search users here" ajax-url="{% url 'search-users-ajax' %}">
 		  			<div class="input-group-append">
 				  		<span class="input-group-text fas fa-user-plus"></span>
 				  	</div>
 		  		</div>
-		  	</div>
-			<div class="col-sm ml-3 mt-1">
-				<div class="text-dark">
-					<span class="badge">
-						<i id="notification-icon" class="fa fa-bell fa-2x" ajax-url="{% url 'users-notifications-unseen'%}"></i>
-					</span>
-					<div id="notification-count" ajax-url="{% url 'users-notifications' %}">
-			  		</div>
-				</div>
-				<div id="notification-body" class="dropdown-menu bg-light" ajax-url="{% url 'users-notifications' %}">
-			  	</div>
-		    </div>
-			<ul id="navbar-list" class="navbar-nav">
-		    	{% if request.user.profile.first_name %}
+		  	</form>
+
+		    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-links" aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			    <div class="collapse navbar-collapse" id="navbar-links">
+					<div class="col-sm ml-3 mt-1">
+					<div class="text-dark">
+						<span class="badge">
+							<i id="notification-icon" class="fa fa-bell fa-2x" ajax-url="{% url 'users-notifications-unseen'%}"></i>
+						</span>
+						<div id="notification-count" ajax-url="{% url 'users-notifications' %}">
+				  		</div>
+					</div>
+					<div id="notification-body" class="dropdown-menu bg-light" ajax-url="{% url 'users-notifications' %}">
+				  	</div>
+			    </div>
+				<ul id="navbar-list" class="navbar-nav">
+			    	{% if request.user.profile.first_name %}
+				    	<li class="nav-item ml-2">
+							<a id="home-url" class="nav-link" href="{% url 'users-home' %}">Home</a> 
+						</li>
+					{% endif %}
 			    	<li class="nav-item ml-2">
-						<a id="home-url" class="nav-link" href="{% url 'users-home' %}">Home</a> 
+						<a class="nav-link" href="{% url 'users-profile' %}">Profile</a>	    	
 					</li>
-				{% endif %}
-		    	<li class="nav-item ml-2">
-					<a class="nav-link" href="{% url 'users-profile' %}">Profile</a>	    	
-				</li>
-				{% if request.user.friends.exists %}
-					<li class="nav-item ml-2">
-						<a id="friends-url" class="nav-link" href="{% url 'view-all-friends' %}">Friends</a>
-					</li>
-				{% endif %}
-			    <li class="nav-item dropdown ml-2">
-					<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Settings</a>
-					<div id="settings" class="dropdown-menu bg-secondary">
-						<a href="{% url 'users-blocked-list' %}" class="dropdown-item text-dark">Blocked users</a>
-						<div class="dropdown-divider"></div>
-						<a href="{% url 'password_reset' %}" class="dropdown-item text-dark">Change password</a>
-						<div class="dropdown-divider"></div>
-				        <a href="#" class="dropdown-item text-dark bg-danger" data-toggle="modal"data-target="#deleteModal">Delete account</a>
-					</div>
-					<div class="modal fade" id="deleteModal">
-					    <div class="modal-dialog modal-dialog-centered">
-					      	<div class="modal-content">
-						        <div class="modal-body">
-						        	<div class="row">
-							        	<div class="col-sm font-weight-bold">
-							        		Are you sure you want to delete your account?<br>
-							        		(All your data will be lost permanently)
-							        	</div>
-							          	<div class="col-sm-1">
-								          	<button type="button" class="close" data-dismiss="modal">
-								          		&times;
-								          	</button>
-								        </div>
-								    </div>
-						        </div>
-						        <div class="modal-footer">
-						          	<a href="{% url 'delete-user' %}" class="btn btn-danger">
-						          		Yes
-						         	 </a>
-						         	<button type="button" class="btn btn-dark" data-dismiss="modal">
-						          		Cancel
-						          	</button>
-						        </div>    
+					{% if request.user.friends.exists %}
+						<li class="nav-item ml-2">
+							<a id="friends-url" class="nav-link" href="{% url 'view-all-friends' %}">Friends</a>
+						</li>
+					{% endif %}
+				    <li class="nav-item dropdown ml-2">
+						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Settings</a>
+						<div id="settings" class="dropdown-menu bg-secondary">
+							<a href="{% url 'users-blocked-list' %}" class="dropdown-item text-dark">Blocked users</a>
+							<div class="dropdown-divider"></div>
+							<a href="{% url 'password_reset' %}" class="dropdown-item text-dark">Change password</a>
+							<div class="dropdown-divider"></div>
+					        <a href="#" class="dropdown-item text-dark bg-danger" data-toggle="modal"data-target="#deleteModal">Delete account</a>
+						</div>
+						<div class="modal fade" id="deleteModal">
+						    <div class="modal-dialog modal-dialog-centered">
+						      	<div class="modal-content">
+							        <div class="modal-body">
+							        	<div class="row">
+								        	<div class="col-sm font-weight-bold">
+								        		Are you sure you want to delete your account?<br>
+								        		(All your data will be lost permanently)
+								        	</div>
+								          	<div class="col-sm-1">
+									          	<button type="button" class="close" data-dismiss="modal">
+									          		&times;
+									          	</button>
+									        </div>
+									    </div>
+							        </div>
+							        <div class="modal-footer">
+							          	<a href="{% url 'delete-user' %}" class="btn btn-danger">
+							          		Yes
+							         	 </a>
+							         	<button type="button" class="btn btn-dark" data-dismiss="modal">
+							          		Cancel
+							          	</button>
+							        </div>    
+							    </div>
 						    </div>
-					    </div>
-					</div>
-			    </li>
-			    <li class="nav-item ml-2">
-					<a class="nav-link" href="{% url 'logout' %}">Log out</a>
-			    </li>
-		  	</ul>
+						</div>
+				    </li>
+				    <li class="nav-item ml-2">
+						<a class="nav-link" href="{% url 'logout' %}">Log out</a>
+				    </li>
+			  	</ul>
+			</div>
 		</nav>
 		<div id="search-results-users" class="container-fluid">
 		</div>
