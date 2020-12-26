@@ -59,14 +59,15 @@
 									{{u.profile.first_name}} {{u.profile.last_name}}
 								</div>
 							</div>
-							<a href="{% url 'other-users-profile' id=u.id %}" class="stretched-link">
-							</a>
 							{% if mode == 'start' %}
 								<div class="col-sm my-2">
 									<button class="btn btn-dark btn-sm w-75 chat-button" ajax-url="{% url 'view-messages' %}" user-id="{{ u.id }}">
 										Chat
 									</button>
 								</div>
+							{% else %}
+								<a href="{% url 'other-users-profile' id=u.id %}" class="stretched-link">
+								</a>
 							{% endif %}
 						</div>
 					</div>
