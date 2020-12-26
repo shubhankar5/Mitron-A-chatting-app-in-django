@@ -1,6 +1,6 @@
 #logo{
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 }
 
 #messages{
@@ -101,13 +101,17 @@
 	cursor: pointer;
 }
 
+#search-users{
+	width: 340px;
+}
+
 #search-results-users{
 	display: none;
 	position: absolute;
 	z-index: 3;
-	left: 130px;
+	left: 133px;
 	top: 58px;
-	width: 410px;
+	width: 415px;
 }
 
 #start-chat-results{
