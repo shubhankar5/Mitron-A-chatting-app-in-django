@@ -82,8 +82,6 @@ def my_profile_view(request):
 														})
 	else:
 		if request.method=='POST':
-			print(request.POST)
-			print(request.FILES)
 			dp_form = ProfilePictureForm(request.POST, request.FILES, instance=request.user.profile)
 			if dp_form.is_valid():
 				dp_form.save()
@@ -125,7 +123,7 @@ def update_profile_picture(request):
 	if request.is_ajax():
 		mode = request.GET.get('mode')
 		if mode == 'remove-picture':
-			request.user.profile.display_picture = 'default.jpg'
+			request.user.profile.display_picture = 'profile_pics/default.jpg'
 			request.user.profile.save()
 			messages.success(request,'Profile picture has been successfully removed')
 			message = 'removed'
