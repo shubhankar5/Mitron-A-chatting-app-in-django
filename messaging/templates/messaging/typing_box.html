@@ -1,6 +1,6 @@
 <textarea id="message-text" class="form-control" placeholder="Type here"></textarea>
 <div class="input-group-append">
-	<button id="send-text" type="button" class="btn btn-dark border rounded p-2" ajax-url="{% url 'send-message' id=id %}">
+	<button id="send-text" type="button" class="btn btn-dark border rounded p-2" data-ajax-url="{% url 'send-message' id=id %}">
 		<strong>Send</strong>
 	</button>
 	<button type="button" class="btn btn-dark btn-sm border rounded pt-2 px-3 ml-1 w-100" data-toggle="modal" data-target="#imageModal">
