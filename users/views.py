@@ -173,14 +173,15 @@ def queryset_users(request, search_text):
 						Q(username__istartswith = search_text) |
 						Q(first_name__istartswith = search_text) |
 						Q(last_name__istartswith = search_text)
+					).order_by(
+						Lower('profile__first_name'),
+						Lower('profile__last_name')
 					).exclude(
 						Q(id = request.user.id) |
 						Q(id = User.objects.get(username='deleted').id) |
 						Q(id__in = blocked_users_id)
-					).order_by(
-						Lower('profile__first_name'),
-						Lower('profile__last_name')
 					)
+					
 			size = len(users_all)
 		except:
 			users_all = None
@@ -282,7 +283,7 @@ def search_friends(request):
 			friends = None
 			size = 0
 		if mode == 'friends':
-			paginator = Paginator(friends, 1)
+			paginator = Paginator(friends, 7)
 			page_number = request.GET.get('page')
 			page_friends = paginator.get_page(page_number)
 			return render(request, 'users/search_results.html', {	'users' : friends,
