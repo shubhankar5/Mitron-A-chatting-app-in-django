@@ -32,13 +32,13 @@ $(function(){
 	});
 
 	$('body').on('mouseover', '.message-div', function(){
-		if($(this).attr('liked')=='False'){
+		if($(this).data('liked')=='False'){
 			$(this).children('.like-button').show();
 		}
 	});
 
 	$('body').on('mouseout', '.message-div', function(){
-		if($(this).attr('liked')=='False'){
+		if($(this).data('liked')=='False'){
 			$(this).children('.like-button').hide();
 		}
 	});
