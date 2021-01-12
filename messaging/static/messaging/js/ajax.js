@@ -1,5 +1,5 @@
 function start_chat_search(){
-	$.get($('#start-chat').attr('ajax-url'),
+	$.get($('#start-chat').data('ajaxUrl'),
 	{
 		'search_text' : $('#start-chat').val(),
 		'mode' : 'start',
@@ -13,7 +13,7 @@ function start_chat_search(){
 }
 
 function load_requested_messages(id, load=$('#requested-message-body').scrollTop()){
-	$.get($('#requested-message').attr('ajax-url'),
+	$.get($('#requested-message').data('ajaxUrl'),
 	{
 		'id' : id
 	},
@@ -30,14 +30,17 @@ function load_requested_messages(id, load=$('#requested-message-body').scrollTop
 }
 
 function load_typing_box(id){
-	$.get($('#typing-box').attr('ajax-url'),
+	$.get($('#typing-box').data('ajaxUrl'),
 	{
 		'id' : id,
 	},
 	function(data){
 		$('#typing-box').html(data);
-		$('#message-text').emojioneArea();
-		$('#message-text')[0].emojioneArea.setFocus();
+		// To add emojionearea uncomment the following; Might not work sometimes
+		// $('#message-text').emojioneArea();
+		// $('#message-text')[0].emojioneArea.setFocus();
+		// To add emojionearea comment the following
+		$('#message-text')[0].focus();
 	},
 	'html'	
 	)
@@ -59,12 +62,13 @@ function load_requested(id, load){
 					else{
 						$('#bottom-button').show();
 					}
-				}, 3000);
+				}, 5000);
 	return chats;
 }
 
 function message_logs(){
-	$.get($('#message-logs').attr('ajax-url'),
+	console.log($('#message-logs').data('ajaxUrl'));
+	$.get($('#message-logs').data('ajaxUrl'),
 	function(data){
 		$('#message-logs').html(data);
 	},
@@ -90,19 +94,21 @@ $(function(){
 		message_logs();
 		setInterval(function(){
 						message_logs();
-					}, 3000);
+					}, 5000);
 		$('#start-chat').keyup( start_chat_search );
 		$('#start-chat').click( start_chat_search );
 	}
 
 	$('body').on('click', '.chat-button', function(){
-		id = $(this).attr('user-id');
+		id = $(this).data('userId');
+		console.log(id);
 		load=true;
 		chats = load_requested(id, load);
 	});
 
 	$('body').on('click', '.message-to,.message-from', function(){
-		id = $(this).attr('user-id');
+		id = $(this).data('userId');
+		console.log(id);
 		load=true;
 		if(chats)
 			clearInterval(chats);
@@ -112,9 +118,9 @@ $(function(){
 	});
 
 	$('body').on('click', '.unseen', function(){
-		$.get($(this).attr('ajax-url'),
+		$.get($(this).data('ajaxUrl'),
 		{
-			'id' : $(this).children().attr('user-id')
+			'id' : $(this).children().data('userId')
 		},
 		function(){
 			message_logs();
@@ -123,7 +129,10 @@ $(function(){
 	});
 
 	$('body').on('click', '#send-text', function(){
-		var text = $('#message-text')[0].emojioneArea.getText();
+		// To add emojionearea uncomment the following one line; Might not work sometimes
+		// var text = $('#message-text')[0].emojioneArea.getText();
+		// To add emojionearea comment the following one line
+		var text = $('#message-text').val();
 		if(text!='' && text!=null){
 			var new_text = text;
 			if(text.length>35){
@@ -134,7 +143,7 @@ $(function(){
 					start+=35;
 				}
 			}
-			$.post($(this).attr('ajax-url'),
+			$.post($(this).data('ajaxUrl'),
 			{
 				'text' : new_text,
 				'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
@@ -146,7 +155,10 @@ $(function(){
 					else
 						load_requested_messages(id);
 					message_logs();
-					$('#message-text')[0].emojioneArea.setText('');
+					// To add emojionearea uncomment the following one line; Might not work sometimes
+					// $('#message-text')[0].emojioneArea.setText('');
+					// To add emojionearea comment the following one line
+					$('#message-text').val('');
 				}else{
 					alert('Could not send your message. Try again later!');
 				}
@@ -183,7 +195,7 @@ $(function(){
 
 	$('body').on('click', '.message-div', function(){
 		$(this).children('.like-button').hide();
-		$.get($(this).attr('ajax-url'),
+		$.get($(this).data('ajaxUrl'),
 		{
 			'id' : $(this).attr('val')
 		},
