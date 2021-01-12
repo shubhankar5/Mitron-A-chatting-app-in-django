@@ -12,23 +12,23 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
     <script src="{% static 'users/js/ajax.js' %}"></script>
     <script src="{% static 'messaging/js/ajax.js' %}"></script>
     <script src="{% static 'messaging/js/general.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js"></script>
     <script >
     	new WOW().init();
     </script>
     <link rel="icon" href="{% static 'users/images/favicon.ico' %}" /> 
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="{% static 'users/css/my_css.css' %}"> 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css">
+	<link rel="stylesheet" href="{% static 'users/css/my_css.css' %}"> 
 </head>
 
-<body user-status="{{ user.is_authenticated }}">
+<body data-user-status="{{ user.is_authenticated }}">
 
 	{% if user.is_authenticated %}
 		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -39,7 +39,7 @@
 			
 		  	<form class="form-inline pl-3 pr-2">
 		  		<div class="input-group">
-			  		<input type="search" class="form-control" id="search-users" autocomplete="off" placeholder="Search users here" ajax-url="{% url 'search-users-ajax' %}">
+			  		<input type="search" class="form-control" id="search-users" autocomplete="off" placeholder="Search users here" data-ajax-url="{% url 'search-users-ajax' %}">
 		  			<div class="input-group-append">
 				  		<span class="input-group-text fas fa-user-plus"></span>
 				  	</div>
@@ -53,12 +53,12 @@
 				<div class="col-sm my-3">
 					<div class="text-dark">
 						<span class="badge">
-							<i id="notification-icon" class="fa fa-bell fa-2x" ajax-url="{% url 'users-notifications-unseen'%}"></i>
+							<i id="notification-icon" class="fa fa-bell fa-2x" data-ajax-url="{% url 'users-notifications-unseen'%}"></i>
 						</span>
-						<div id="notification-count" ajax-url="{% url 'users-notifications' %}">
+						<div id="notification-count" data-ajax-url="{% url 'users-notifications' %}">
 				  		</div>
 					</div>
-					<div id="notification-body" class="dropdown-menu bg-light" ajax-url="{% url 'users-notifications' %}">
+					<div id="notification-body" class="dropdown-menu bg-light" data-ajax-url="{% url 'users-notifications' %}">
 				  	</div>
 			    </div>
 				<ul id="navbar-list" class="navbar-nav">
