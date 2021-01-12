@@ -1,5 +1,5 @@
 function get_notifications(){ 
-	$.get($('#notification-count').attr('ajax-url'),
+	$.get($('#notification-count').data('ajaxUrl'),
 	{
 		'mode' : 'count'
 	},
@@ -9,7 +9,7 @@ function get_notifications(){
 	'html'
 	);
 
-	$.get($('#notification-body').attr('ajax-url'),
+	$.get($('#notification-body').data('ajaxUrl'),
 	{
 		'mode' : 'body'
 	},
@@ -21,11 +21,11 @@ function get_notifications(){
 }
 
 function search_friends(page=1){
-	$.get($('#search-friends').attr('ajax-url'),
+	$.get($('#search-friends').data('ajaxUrl'),
 	{
 		'search_text' : $('#search-friends').val(),
 		'mode' : 'friends',
-		'page' : ''+page,
+		'page' : '' + page,
 	},
 	function(data){
 		$('#search-results-friends').html(data);
@@ -43,7 +43,7 @@ $(function(){
 	    }
 	});
 
-	if( $('body').attr('user-status') == 'True'){
+	if( $('body').data('userStatus') == 'True'){
 		get_notifications();
 
 		setInterval(function(){
@@ -52,9 +52,9 @@ $(function(){
 		
 		$('body').on('click', '#notification-icon', function(){
 			document.getElementById('notification-body').classList.toggle('show');
-			$.get($(this).attr('ajax-url'),
+			$.get($(this).data('ajaxUrl'),
 			{
-				'last' : $('#notification-count-value').attr('last'),
+				'last' : $('#notification-count-value').data('last'),
 			},
 			function(data){
 				if(data.response == 'success'){
@@ -66,7 +66,7 @@ $(function(){
 	}
 
 	$('#search-users').keyup(function(){
-		$.get($(this).attr('ajax-url'),
+		$.get($(this).data('ajaxUrl'),
 			{
 				'search_text' : $(this).val(),
 			},
@@ -79,11 +79,11 @@ $(function(){
 	});
 
 	$('body').on('click', '#view-all-button', function () {
-		window.location = $('#view-all-button').attr('ajax-url') + 'keyword='+ $('#search-users').val();
+		window.location = $('#view-all-button').data('ajaxUrl') + 'keyword='+ $('#search-users').val();
 	});
 
 	$('body').on('click', '#remove-picture', function (){
-		$.get($(this).attr('ajax-url'),
+		$.get($(this).data('ajaxUrl'),
 		{
 			'mode' : $(this).attr('id')
 		},
@@ -99,9 +99,9 @@ $(function(){
 	}
 
 	$('.ajax-friend-button').click(function(){
-		$.post($(this).attr('ajax-url'),
+		$.post($(this).data('ajaxUrl'),
 		{
-			'user_id' : $(this).attr('user-id'),
+			'user_id' : $(this).data('userId'),
 			'choice' : $(this).attr('id'),
 			'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
 		},
@@ -113,7 +113,7 @@ $(function(){
   	});
 
 	$('.block-button').click(function(){
-		$.get($(this).attr('ajax-url'),
+		$.get($(this).data('ajaxUrl'),
 		function(){
 			location.reload();
   		},
@@ -122,6 +122,6 @@ $(function(){
   	});
 
   	$('body').on('click', '.paginator', function(){
-		search_friends($(this).attr('page'));
+		search_friends($(this).data('page'));
   	});
 });
