@@ -1,6 +1,6 @@
 {% if mode == 'count' %}	
 	{% if notifications_count %}
-		<span id="notification-count-value" class="badge bg-light border border-light rounded-circle"  last="{{ last }}">
+		<span id="notification-count-value" class="badge bg-light border border-light rounded-circle"  data-last="{{ last }}">
   			{{ notifications_count }}
   		</span>
   	{% endif %}
