@@ -24,13 +24,13 @@
 								<form method="post" enctype="multipart/form-data" class="form-control-sm dropdown-header">	
 									{% csrf_token %}
 									{{ dp_form }}
-									<button type="submit" class="btn btn-sm btn-dark" ajax-url="{% url 'users-profile-picture-update' %}">
+									<button type="submit" class="btn btn-sm btn-dark" data-ajax-url="{% url 'users-profile-picture-update' %}">
 										Upload picture
 									</button>
 								</form>
 							</div>
 							<div class="dropdown-divider"></div>
-					        <div id="remove-picture" class="dropdown-item ml-4" ajax-url="{% url 'users-profile-picture-update' %}">
+					        <div id="remove-picture" class="dropdown-item ml-4" data-ajax-url="{% url 'users-profile-picture-update' %}">
 					        	Remove picture
 					        </div>
 						</div>
@@ -85,7 +85,7 @@
 			{% if is_blocked %}
 				<div class="row mt-4 ml-1">
 					<div class=" col-sm-3">
-						<button type="button" class="block-button btn btn-dark btn-sm" ajax-url="{% url 'block-users' id=person.id action='unblock'%}">
+						<button type="button" class="block-button btn btn-dark btn-sm" data-ajax-url="{% url 'block-users' id=person.id action='unblock'%}">
 							Unblock User
 						</button>
 					</div>
@@ -114,7 +114,7 @@
 										    </div>
 								        </div>
 								        <div class="modal-footer">
-								          	<button id="remove" type="button" class="ajax-friend-button btn btn-dark" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+								          	<button id="remove" type="button" class="ajax-friend-button btn btn-dark" data-user-id={{person.id}} data-ajax-url="{% url 'change-friends-ajax' %}">
 								          		Yes
 								         	 </button>
 								         	<button type="button" class="btn btn-danger" data-dismiss="modal">
@@ -127,7 +127,7 @@
 						</div>
 					{% elif sent %}
 						<div class="col-sm-3">
-							<button id="cancel_request" class="ajax-friend-button btn btn-info btn-sm" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+							<button id="cancel_request" class="ajax-friend-button btn btn-info btn-sm" data-user-id={{person.id}} data-ajax-url="{% url 'change-friends-ajax' %}">
 								Cancel Friend Request
 							</button>
 						</div>
@@ -136,18 +136,18 @@
 							Respond to request
 						</div>
 						<div class="col-sm-1">
-							<button id="accept" class="ajax-friend-button btn btn-info btn-sm" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+							<button id="accept" class="ajax-friend-button btn btn-info btn-sm" data-user-id={{person.id}} data-ajax-url="{% url 'change-friends-ajax' %}">
 								Accept
 							</button>
 						</div>
 						<div class="col-sm-1">
-							<button id="decline" class="ajax-friend-button btn btn-danger btn-sm" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+							<button id="decline" class="ajax-friend-button btn btn-danger btn-sm" data-user-id={{person.id}} data-ajax-url="{% url 'change-friends-ajax' %}">
 								Decline
 							</button>
 						</div>
 					{% else %}
 						<div class="col-sm-2">
-							<button id="add" class="ajax-friend-button btn btn-info btn-sm" user-id={{person.id}} ajax-url="{% url 'change-friends-ajax' %}">
+							<button id="add" class="ajax-friend-button btn btn-info btn-sm" data-user-id={{person.id}} data-ajax-url="{% url 'change-friends-ajax' %}">
 								Add Friend
 							</button>
 						</div>
@@ -156,7 +156,7 @@
 				<div class="row mt-3 ml-1">
 					<div class="col-sm-2">
 						{% if not is_blocked %}
-							<button type="button" class="block-button btn btn-dark btn-sm" ajax-url="{% url 'block-users' id=person.id action='block'%}">
+							<button type="button" class="block-button btn btn-dark btn-sm" data-ajax-url="{% url 'block-users' id=person.id action='block'%}">
 								Block User
 							</button>
 						{% endif %}
