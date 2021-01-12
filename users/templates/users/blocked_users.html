@@ -13,7 +13,7 @@
 					<div class="col-sm-6 border border-secondary rounded">
 						<div class="row bg-light">
 							<div class="col-sm-1 mt-2 mb-1 ml-3">
-								<img src="{{ u.profile.display_picture.url }}" alt="Display Picture" class="rounded-circle" style="width:35px;">
+								<img src="{{ u.profile.display_picture.url }}" alt="Display Picture" class="rounded-circle search-dp">
 							</div>
 							<div class="col-sm-5 mt-1 ml-4">
 								<div class="row font-weight-bold">
@@ -29,7 +29,7 @@
 					</div>
 
 					<div class="col-sm-2 my-2 ml-2">
-						<button type="button" class="block-button btn btn-dark btn-sm" ajax-url="{% url 'block-users' id=u.id action='unblock'%}">
+						<button type="button" class="block-button btn btn-dark btn-sm" data-ajax-url="{% url 'block-users' id=u.id action='unblock'%}">
 							Unblock User
 						</button>
 					</div>
