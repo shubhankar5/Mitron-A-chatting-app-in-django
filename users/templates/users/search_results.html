@@ -25,21 +25,21 @@
 
 			<div class="contianer mt-4 ml-3">
 		        {% if page_friends.has_previous %}
-		            <button page="1" class="btn btn-sm btn-outline-primary mx-1 paginator">&laquo; First</button>
+		            <button data-page="1" class="btn btn-sm btn-outline-primary mx-1 paginator">&laquo; First</button>
 		            <button href="?page={{ page_friends.previous_page_number }} mx-1" class="btn btn-sm btn-outline-primary paginator">Previous</button>
 		        {% endif %}
 
 		        {% for num in page_friends.paginator.page_range %}
 		        	{% if page_friends.number == num %}
-		        		<button page="{{ num }}" class="btn btn-sm btn-primary mx-1 paginator">{{ num }}</button>
+		        		<button data-page="{{ num }}" class="btn btn-sm btn-primary mx-1 paginator">{{ num }}</button>
 		        	{% elif page_friends.number > num|add:'-3' or page_friends.number < num|add:'3'%}
-		        		<button page="{{ num }}" class="btn btn-sm btn-outline-primary mx-1 paginator">{{ num }}</button>
+		        		<button data-page="{{ num }}" class="btn btn-sm btn-outline-primary mx-1 paginator">{{ num }}</button>
 		        	{% endif %}
 		        {% endfor %}
 
 		        {% if page_friends.has_next %}
-		            <button page="{{ page_friends.next_page_number }}" class="btn btn-sm btn-outline-primary mx-1 paginator">Next</button>
-		            <button page="{{ page_friends.paginator.num_pages }}" class="btn btn-sm btn-outline-primary mx-1 paginator">Last &raquo;</button>
+		            <button data-page="{{ page_friends.next_page_number }}" class="btn btn-sm btn-outline-primary mx-1 paginator">Next</button>
+		            <button data-page="{{ page_friends.paginator.num_pages }}" class="btn btn-sm btn-outline-primary mx-1 paginator">Last &raquo;</button>
 		        {% endif %}
 			</div>
 
@@ -61,7 +61,7 @@
 							</div>
 							{% if mode == 'start' %}
 								<div class="col-sm my-2">
-									<button class="btn btn-dark btn-sm w-75 chat-button" ajax-url="{% url 'view-messages' %}" user-id="{{ u.id }}">
+									<button class="btn btn-dark btn-sm w-75 chat-button" data-ajax-url="{% url 'view-messages' %}" data-user-id="{{ u.id }}">
 										Chat
 									</button>
 								</div>
@@ -78,7 +78,7 @@
 				<div class="row">
 					<div class="col-sm border border-secondary rounded-bottom">
 						<div class="row bg-light pl-4 py-2">
-							<button id="view-all-button" class="btn btn-dark btn-sm" ajax-url="{% url 'search-results-users' %}">
+							<button id="view-all-button" class="btn btn-dark btn-sm" data-ajax-url="{% url 'search-results-users' %}">
 								View all results
 							</button>
 						</div>
