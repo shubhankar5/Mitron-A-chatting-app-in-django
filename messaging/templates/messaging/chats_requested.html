@@ -25,7 +25,7 @@
 				{% if m.whos|get_sender == user %}
 					<div class="row justify-content-end">
 						<div class="col-sm-7 mb-1">
-							<div class="row justify-content-end mt-3 message-div" ajax-url="{% url 'handle-message-liking' %}" val="{{ m.id }}" liked="{{ m.liked }}">
+							<div class="row justify-content-end mt-3 message-div" data-ajax-url="{% url 'handle-message-liking' %}" data-val="{{ m.id }}" data-liked="{{ m.liked }}">
 								<span class="badge pt-3 pl-2 like-button">
 									<i class="far fa-heart fa-lg"></i>
 								</span>
@@ -45,7 +45,7 @@
 										</div>
 									{% endif %}
 								{% elif m.message_type == 'i' %}
-									<img src="{{ m.image.url }}" alt="Image" class="img-fluid rounded mr-3 mb-1">
+									<img src="{{ m.image.url }}" alt="Image" class="img-fluid rounded mr-3 mb-1 chat-img">
 								{% endif %}
 							</div>
 							<div class="row small justify-content-end font-italic">
@@ -56,7 +56,7 @@
 				{% elif m.whos|get_sender == other %}
 					<div class="row">
 						<div class="col-sm-7 mb-1">
-							<div class="row mt-3 message-div" ajax-url="{% url 'handle-message-liking' %}" val="{{ m.id }}" liked="{{ m.liked }}">
+							<div class="row mt-3 message-div" data-ajax-url="{% url 'handle-message-liking' %}" data-val="{{ m.id }}" data-liked="{{ m.liked }}">
 								{% if m.message_type == 't' %}
 									{% if m.text|dec|length %}
 										<div class="col-sm-10 other-msg badge-pill mr-3 px-3 py-1 text-center">
@@ -68,7 +68,7 @@
 										</div>
 									{% endif %}
 								{% elif m.message_type == 'i' %}
-									<img src="{{ m.image.url }}" alt="Image" class="img-fluid rounded mr-3 mb-1">
+									<img src="{{ m.image.url }}" alt="Image" class="img-fluid rounded mr-3 mb-1 chat-img">
 								{% endif %}
 								<span class="badge pt-3 pl-2 like-button">
 									<i class="far fa-heart fa-lg"></i>
