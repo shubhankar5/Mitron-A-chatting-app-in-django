@@ -2,19 +2,10 @@
 {% block content %}
 	
 	{% if has_friends %}
-		<!-- {% if not has_messages %}
-			<div class="container-fluid mt-3">
-				<div class="col-sm text-info mb-4">
-					<h3>
-						Send your first message and start chatting now!
-					</h3>				
-				</div>
-			</div>
-		{% endif %} -->
 		<div class="container mt-3">
 			<div class="row">
 				<div class="col-sm-5 input-group">
-					<input type="search" id="search-friends" class="form-control" autocomplete="off" placeholder="Search your friends here" ajax-url="{% url 'search-friends-ajax' %}">
+					<input type="search" id="search-friends" class="form-control" autocomplete="off" placeholder="Search your friends here" data-ajax-url="{% url 'search-friends-ajax' %}">
 					<div class="input-group-append">
 				  		<span class="input-group-text fa fa-search"></span>
 				  	</div>
