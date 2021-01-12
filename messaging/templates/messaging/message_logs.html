@@ -9,7 +9,7 @@
 					</span>
 				</div>
 				<div class="col-sm p-1">
-					<button class="btn border border-light rounded message-to w-100" user-id="{{ m.receiver }}" ajax-url="{% url 'view-messages' %}">
+					<button class="btn border border-light rounded message-to w-100" data-user-id="{{ m.receiver }}" data-ajax-url="{% url 'view-messages' %}">
 						<h6 class="font-weight-bold p-1">
 							Messages to {{ m.receiver|get_first_name }} {{ m.receiver|get_last_name }}
 						</h6>
@@ -26,7 +26,7 @@
 						</span>
 					</div>
 					<div class="col-sm p-1">
-						<button class="btn border border-light rounded message-from w-100" user-id="{{ m.sender }}" ajax-url="{% url 'view-messages' %}">
+						<button class="btn border border-light rounded message-from w-100" data-user-id="{{ m.sender }}" data-ajax-url="{% url 'view-messages' %}">
 							<h6 class="font-weight-bold p-1">
 								Messages from {{ m.sender|get_first_name }} {{ m.sender|get_last_name }}
 							</h6>
@@ -41,8 +41,8 @@
 							<i class="fa fa-arrow-right"></i>
 						</span>
 					</div>
-					<div class="col-sm unseen mt-1 p-1" ajax-url="{% url 'handle-unseen-messages' %}" >
-						<button class="btn border border-light rounded message-from w-100" user-id="{{ m.sender }}" ajax-url="{% url 'view-messages' %}">
+					<div class="col-sm unseen mt-1 p-1" data-ajax-url="{% url 'handle-unseen-messages' %}" >
+						<button class="btn border border-light rounded message-from w-100" data-user-id="{{ m.sender }}" data-ajax-url="{% url 'view-messages' %}">
 							<h6 class="font-weight-bold p-1">
 								Messages from {{ m.sender|get_first_name }} {{ m.sender|get_last_name }}
 							</h6>
