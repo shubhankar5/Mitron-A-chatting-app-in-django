@@ -44,16 +44,16 @@
 						About
 					</h5>
 					<ul class="list-unstyled p-2 font-weight-normal">
-						<li class="mt-1">Email ID: {{ person.email }}</li>
-						<li class="mt-1">Sex: {{ person.profile.get_sex_display }}</li>
-						<li class="mt-1">Date of Birth: {{ person.profile.dob|date:"d/m/Y" }}</li>
+						<li class="mt-1">{{ person.profile.get_sex_display }}</li>
 						<li class="mt-1">
-							Address:
+							I'm from 
 								{{ person.profile.address.city }},
 								{{ person.profile.address.state }},
 								{{ person.profile.address.country }}
 						</li>
 						{% if person == user %}
+							<li class="mt-1">Born on {{ person.profile.dob|date:"d/m/Y" }}</li>
+							<li class="mt-1">My email id is {{ person.email }}</li>
 							<li class="font-italic mt-3">User since {{ person.date_joined }}</li>
 						{% endif %}
 					</ul>
