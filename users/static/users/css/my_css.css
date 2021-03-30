@@ -54,8 +54,23 @@
 	display: none;
 }
 
+
 #settings{
-	color: white;
+	background-color: rgb(180,180,180);
+}
+
+#settings a:hover{
+	color: rgb(255,255,240);
+	background-color: DarkSlateGray;
+}
+
+#settings a#delete-account{
+	color: rgb(200,8,21);
+}
+
+#settings a#delete-account:hover{
+	color: rgb(255,255,240);
+	background-color: rgb(200,8,21);
 }
 
 #message-text{
@@ -168,6 +183,11 @@
 	background-color: MediumOrchid;
 }
 
+.chat-img{
+	height: 350px;
+	width: 350px;
+}
+
 #requested-message-body, #message-logs{
 	height: 380px;
 	overflow-y: scroll;
@@ -187,5 +207,3 @@
 	outline: none;
 	text-align: center;	
 }
-
-
