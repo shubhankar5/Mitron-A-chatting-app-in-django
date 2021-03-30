@@ -77,12 +77,12 @@
 					{% endif %}
 				    <li class="nav-item dropdown ml-2">
 						<a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Settings</a>
-						<div id="settings" class="dropdown-menu bg-secondary">
-							<a href="{% url 'users-blocked-list' %}" class="dropdown-item text-dark">Blocked users</a>
+						<div id="settings" class="dropdown-menu">
+							<a href="{% url 'users-blocked-list' %}" class="dropdown-item">Blocked users</a>
 							<div class="dropdown-divider"></div>
-							<a href="{% url 'password_reset' %}" class="dropdown-item text-dark">Change password</a>
+							<a href="{% url 'password_reset' %}" class="dropdown-item">Change password</a>
 							<div class="dropdown-divider"></div>
-					        <a href="#" class="dropdown-item text-dark bg-danger" data-toggle="modal"data-target="#deleteModal">Delete account</a>
+					        <a href="#" id="delete-account" class="dropdown-item" data-toggle="modal"data-target="#deleteModal">Delete account</a>
 						</div>
 						<div class="modal fade" id="deleteModal">
 						    <div class="modal-dialog modal-dialog-centered">
