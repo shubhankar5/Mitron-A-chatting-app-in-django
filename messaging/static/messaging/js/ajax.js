@@ -67,7 +67,6 @@ function load_requested(id, load){
 }
 
 function message_logs(){
-	console.log($('#message-logs').data('ajaxUrl'));
 	$.get($('#message-logs').data('ajaxUrl'),
 	function(data){
 		$('#message-logs').html(data);
@@ -101,14 +100,12 @@ $(function(){
 
 	$('body').on('click', '.chat-button', function(){
 		id = $(this).data('userId');
-		console.log(id);
 		load=true;
 		chats = load_requested(id, load);
 	});
 
 	$('body').on('click', '.message-to,.message-from', function(){
 		id = $(this).data('userId');
-		console.log(id);
 		load=true;
 		if(chats)
 			clearInterval(chats);
@@ -197,7 +194,7 @@ $(function(){
 		$(this).children('.like-button').hide();
 		$.get($(this).data('ajaxUrl'),
 		{
-			'id' : $(this).attr('val')
+			'id' : $(this).data('val')
 		},
 		function(){
 			load_requested_messages(id);
