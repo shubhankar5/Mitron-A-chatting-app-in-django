@@ -46,4 +46,6 @@ $(function(){
 	$('.cancel-button').click(function(){
   		window.history.back();
   	});
+
+  	$(".alert").fadeTo(5000, 1).slideUp(800);
 });
