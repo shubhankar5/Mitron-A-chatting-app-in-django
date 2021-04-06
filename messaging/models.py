@@ -23,7 +23,7 @@ class MessageFeatures(models.Model):
 
 	message_type = models.CharField(max_length=1, choices=MESSAGE_TYPE_CHOICES, default='t')
 	time_stamp = models.DateTimeField(default=timezone.now)
-	text = models.CharField(max_length=500, blank=True, null=True)
+	text = models.CharField(max_length=2200, blank=True, null=True)
 	image=models.ImageField(upload_to=create_temp_path, blank=True, null=True)
 	seen = models.BooleanField(default=False)
 	liked = models.BooleanField(default=False)
