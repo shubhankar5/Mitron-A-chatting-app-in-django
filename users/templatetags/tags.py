@@ -47,5 +47,9 @@ def length(text):
 
 @register.filter
 def dec(text):
-	# print(decrypt(text))
-	return decrypt(text)
+	if(len(text) > 128):
+		enc = [text[i: i+128] for i in range(0, len(text), 128)]
+		dec = ''.join([decrypt(e) for e in enc])
+	else:
+		dec = decrypt(text)
+	return dec
