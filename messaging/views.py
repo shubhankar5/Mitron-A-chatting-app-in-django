@@ -111,7 +111,11 @@ def view_typing_box(request):
 def send_message(request, id):
 	if request.is_ajax():
 		text = request.POST.get('text')
-		enc = encrypt(text)
+		if(len(text) > 63):
+			inp = [text[i: i+63] for i in range(0, len(text), 63)]
+			enc = ''.join([encrypt(s) for s in inp])
+		else:
+			enc = encrypt(text)
 		person = User.objects.get(id=id)
 		try:
 			Messages.add_message(request.user, person, text=enc)
