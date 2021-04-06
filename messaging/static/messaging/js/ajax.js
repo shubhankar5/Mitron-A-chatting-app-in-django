@@ -86,7 +86,6 @@ function bottom_check(){
 		return false;	
 }
 
-
 $(function(){
 	var id, load, chats=null;
 	if( window.location.pathname == $('#home-url').attr('href') ){
@@ -140,7 +139,7 @@ $(function(){
 					start+=35;
 				}
 			}
-			$.post($(this).data('ajaxUrl'),
+			$.post($('#send-text').data('ajaxUrl'),
 			{
 				'text' : new_text,
 				'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
@@ -162,7 +161,65 @@ $(function(){
 	  		},
 	  		'json'
 	  		);
-  		}
+		}
+	});
+
+	$('body').on('focus', '#message-text', function(){
+		var shiftDown = false;
+		$('#message-text').keydown(function(e){
+			var key = e.which;
+			if(key == 16){
+				shiftDown = true;
+			}
+		});
+
+		$('#message-text').keyup(function(e){
+			var key = e.which;
+			if(key == 13){
+				e.preventDefault();
+				if(!shiftDown){
+					// To add emojionearea uncomment the following one line; Might not work sometimes
+					// var text = $('#message-text')[0].emojioneArea.getText();
+					// To add emojionearea comment the following one line
+					var text = $('#message-text').val();
+					if(text!='' && text!=null){
+						var new_text = text;
+						if(text.length>35){
+							var start=0;
+							new_text='';
+							while(start<text.length){
+								new_text += (text.slice(start, start+35)+'\n');
+								start+=35;
+							}
+						}
+						$.post($('#send-text').data('ajaxUrl'),
+						{
+							'text' : new_text,
+							'csrfmiddlewaretoken' : $('input[name=csrfmiddlewaretoken]').val()
+						},
+						function(data){
+							if( data.response == 'Sent' ){
+								if(bottom_check())
+									load_requested_messages(id, true);
+								else
+									load_requested_messages(id);
+								message_logs();
+								// To add emojionearea uncomment the following one line; Might not work sometimes
+								// $('#message-text')[0].emojioneArea.setText('');
+								// To add emojionearea comment the following one line
+								$('#message-text').val('');
+							}else{
+								alert('Could not send your message. Try again later!');
+							}
+				  		},
+				  		'json'
+				  		);
+					}
+				}
+			}else if(key == 16){
+				shiftDown = false;
+			}
+		});
 	});
 
 	$('body').on('submit', '#image-form', function(){
